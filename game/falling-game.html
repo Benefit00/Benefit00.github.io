@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Falling Objects Game</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { overflow: hidden; }
+    canvas { display: block; background-size: cover; background-repeat: no-repeat; }
+  </style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let player = {
+  x: canvas.width / 2 - 25,
+  y: canvas.height - 60,
+  width: 50,
+  height: 50,
+  speed: 5,
+  vy: 0,
+  gravity: 0.5,
+  jumpStrength: -12,
+  onGround: true,
+  jumpCount: 0,
+  color: "blue"
+};
+
+let keys = {};
+let fallingObjects = [];
+let score = 0;
+let lives = 3;
+let stage = 1;
+let nextStageScore = 100;
+let abilitiesUnlocked = false;
+let backgroundImages = [
+  'url("stage1.gif")',
+  'url("stage2.gif")',
+  'url("stage3.gif")',
+  'url("stage4.gif")',
+  'url("stage5.gif")'
+];
+canvas.style.backgroundImage = backgroundImages[0];
+
+function createObject() {
+  fallingObjects.push({
+    x: Math.random() * (canvas.width - 30),
+    y: -30,
+    width: 30,
+    height: 30,
+    speed: 2 + stage,
+    color: "red"
+  });
+}
+
+function drawPlayer() {
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x, player.y, player.width, player.height);
+}
+
+function drawObjects() {
+  for (let obj of fallingObjects) {
+    ctx.fillStyle = obj.color;
+    ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+  }
+}
+
+function updateObjects() {
+  for (let i = fallingObjects.length - 1; i >= 0; i--) {
+    let obj = fallingObjects[i];
+    obj.y += obj.speed;
+
+    if (
+      obj.y + obj.height >= player.y &&
+      obj.x < player.x + player.width &&
+      obj.x + obj.width > player.x
+    ) {
+      score += 2; // Each block gives 2 points
+      fallingObjects.splice(i, 1);
+      checkStageAdvance();
+    } else if (obj.y > canvas.height) {
+      lives--;
+      fallingObjects.splice(i, 1);
+      if (lives <= 0) alert("Game Over! Reload to play again.");
+    }
+  }
+}
+
+function checkStageAdvance() {
+  if (score >= nextStageScore) {
+    stage++;
+    player.speed += 1;
+    nextStageScore += 100 + stage * 10;
+    if (backgroundImages[stage - 1]) {
+      canvas.style.backgroundImage = backgroundImages[stage - 1];
+    }
+    if (stage >= 4) abilitiesUnlocked = true;
+  }
+}
+
+function drawUI() {
+  ctx.fillStyle = "white";
+  ctx.font = "20px Arial";
+  ctx.fillText("Score: " + score, 20, 30);
+  ctx.fillText("Lives: " + lives, 20, 60);
+  ctx.fillText("Stage: " + stage, 20, 90);
+}
+
+function applyGravity() {
+  player.vy += player.gravity;
+  player.y += player.vy;
+
+  if (player.y + player.height >= canvas.height) {
+    player.y = canvas.height - player.height;
+    player.vy = 0;
+    player.onGround = true;
+    player.jumpCount = 0;
+  } else {
+    player.onGround = false;
+  }
+}
+
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawPlayer();
+  drawObjects();
+  drawUI();
+  updateObjects();
+  applyGravity();
+  handlePlayerMovement();
+  requestAnimationFrame(gameLoop);
+}
+
+function handlePlayerMovement() {
+  if (keys["ArrowLeft"] && player.x > 0) player.x -= player.speed;
+  if (keys["ArrowRight"] && player.x + player.width < canvas.width) player.x += player.speed;
+}
+
+function handleAbilities(e) {
+  if (abilitiesUnlocked) {
+    if (e.key === '1') {
+      score += 50; // Bonus
+    } else if (e.key === '2') {
+      lives += 1; // Gain life
+    } else if (e.key === '3') {
+      for (let obj of fallingObjects) obj.speed /= 2; // Slow motion
+    }
+  }
+}
+
+function handleJump() {
+  if (player.jumpCount < 2) {
+    player.vy = player.jumpStrength;
+    player.jumpCount++;
+    player.onGround = false;
+  }
+}
+
+window.addEventListener("keydown", (e) => {
+  keys[e.key] = true;
+  if (e.code === "Space") {
+    handleJump();
+  }
+  handleAbilities(e);
+});
+
+window.addEventListener("keyup", (e) => {
+  keys[e.key] = false;
+});
+
+setInterval(createObject, 800);
+
+gameLoop();
+</script>
+</body>
+</html>
