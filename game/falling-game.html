@@ -48,14 +48,26 @@ let backgroundImages = [
 ];
 canvas.style.backgroundImage = backgroundImages[0];
 
+const objectImagesSrc = [
+  'game/assets/dog1.png',
+  'game/assets/soldier.png',
+  'game/assets/princess.png'
+];
+const objectImages = objectImagesSrc.map(src => {
+  const img = new Image();
+  img.src = src;
+  return img;
+});
+
 function createObject() {
+  const imgIndex = Math.floor(Math.random() * objectImages.length);
   fallingObjects.push({
     x: Math.random() * (canvas.width - 30),
     y: -30,
     width: 30,
     height: 30,
     speed: 2 + stage,
-    color: "red"
+    image: objectImages[imgIndex]
   });
 }
 
@@ -66,8 +78,7 @@ function drawPlayer() {
 
 function drawObjects() {
   for (let obj of fallingObjects) {
-    ctx.fillStyle = obj.color;
-    ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+    ctx.drawImage(obj.image, obj.x, obj.y, obj.width, obj.height);
   }
 }
 
