@@ -49,20 +49,30 @@ let backgroundImages = [
 canvas.style.backgroundImage = backgroundImages[0];
 
 const objectImagesSrc = [
-  'game/assets/dog.png',
-  'game/assets/dog2.png',
-  'game/assets/bird1.png',
-  'game/assets/bird2.png',
-  'game/assets/bird3.png',
-  'game/assets/cat.png',
+  'game/assets/dog1.png',
   'game/assets/soldier.png',
   'game/assets/princess.png'
 ];
-const objectImages = objectImagesSrc.map(src => {
-  const img = new Image();
-  img.src = src;
-  return img;
-});
+let objectImages = [];
+let imagesLoaded = 0;
+
+function preloadImages(sources, callback) {
+  let loadedImages = [];
+  for (let i = 0; i < sources.length; i++) {
+    let img = new Image();
+    img.src = sources[i];
+    img.onload = () => {
+      loadedImages[i] = img;
+      imagesLoaded++;
+      if (imagesLoaded === sources.length) {
+        callback(loadedImages);
+      }
+    };
+    img.onerror = () => {
+      console.error("Failed to load image:", sources[i]);
+    };
+  }
+}
 
 function createObject() {
   const imgIndex = Math.floor(Math.random() * objectImages.length);
@@ -97,7 +107,7 @@ function updateObjects() {
       obj.x < player.x + player.width &&
       obj.x + obj.width > player.x
     ) {
-      score += 2; // Each block gives 2 points
+      score += 2;
       fallingObjects.splice(i, 1);
       checkStageAdvance();
     } else if (obj.y > canvas.height) {
@@ -161,11 +171,11 @@ function handlePlayerMovement() {
 function handleAbilities(e) {
   if (abilitiesUnlocked) {
     if (e.key === '1') {
-      score += 50; // Bonus
+      score += 50;
     } else if (e.key === '2') {
-      lives += 1; // Gain life
+      lives += 1;
     } else if (e.key === '3') {
-      for (let obj of fallingObjects) obj.speed /= 2; // Slow motion
+      for (let obj of fallingObjects) obj.speed /= 2;
     }
   }
 }
@@ -190,9 +200,15 @@ window.addEventListener("keyup", (e) => {
   keys[e.key] = false;
 });
 
-setInterval(createObject, 800);
+function startGame() {
+  setInterval(createObject, 800);
+  gameLoop();
+}
 
-gameLoop();
+preloadImages(objectImagesSrc, function(loadedImages) {
+  objectImages = loadedImages;
+  startGame();
+});
 </script>
 </body>
 </html>
