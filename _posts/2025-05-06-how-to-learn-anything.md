@@ -6,6 +6,10 @@ categories: learning productivity
 tags: [curiosity, strategy, growth]
 ---
 
+<p align="center">
+  <img src="https://secsociety.co.za/images/secsoc.png" alt="Learning is a Lifelong Journey" style="max-width: 100%; height: auto;">
+</p>
+
 Learning is a lifelong journey, and curiosity is your best compass...
 
 ## Step 1: Embrace Questions
