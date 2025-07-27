@@ -1,12 +1,5 @@
 ---
 layout: post
-title:  "Marketing and awareness on the internet"
-date:   2025-07-10 10:00:00 +0000
-categories: learning productivity
-tags: [curiosity, strategy, growth, marketing, seo, awareness]
----
-
----
 title: "Website Marketing Essentials"
 date: 2025-07-27
 description: "A guide to optimizing your site for visibility and search performance with SEO best practices, Google Analytics, and essential web files."
