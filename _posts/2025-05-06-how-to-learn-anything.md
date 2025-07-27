@@ -6,7 +6,9 @@ categories: learning productivity
 tags: [curiosity, strategy, growth]
 ---
 
-![Learning is a Lifelong Journey](/images/assets/learning.png)
+<p align="center">
+  <img src="/images/assets/learning.png" alt="Learning is a Lifelong Journey" style="max-width: 600px; width: 100%; height: auto;">
+</p>
 
 Learning is a lifelong journey, and curiosity is your best compass...
 
