@@ -1,4 +1,4 @@
----
+<!-- ---
 layout: default
 ---
 
@@ -16,5 +16,24 @@ layout: default
     </article>
   {% endfor %}
 </div>
+ -->
 
+---
+layout: default
+---
+
+<h1>Blog Posts</h1>
+
+<div class="accordion">
+  {% for post in site.posts %}
+    <div class="accordion-item">
+      <button class="accordion-title">{{ post.title }}</button>
+      <div class="accordion-content">
+        <p class="post-date">{{ post.date | date: "%B %d, %Y" }}</p>
+        {{ post.excerpt }}
+        <p><a href="{{ site.baseurl }}{{ post.url }}">Read full post →</a></p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
 
