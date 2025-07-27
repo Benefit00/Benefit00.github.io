@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "When the System Fails Its Citizens: My Story of Being Victimized in My Own Home"
 date: 2025-07-27
 description: "A firsthand account of property hijacking, corruption, and institutional failure in South Africa."
