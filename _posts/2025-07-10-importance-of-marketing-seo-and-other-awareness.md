@@ -7,7 +7,7 @@ tags: [curiosity, strategy, growth, marketing, seo, awareness]
 ---
 
 ---
-title: "Website Marketing Essentials: SEO, Meta Tags, Keywords & Core Files"
+title: "Website Marketing Essentials"
 date: 2025-07-27
 description: "A guide to optimizing your site for visibility and search performance with SEO best practices, Google Analytics, and essential web files."
 tags: [SEO, marketing, meta tags, Google Analytics, Jekyll, GitHub Pages]
