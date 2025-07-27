@@ -7,7 +7,7 @@ tags: [curiosity, strategy, growth]
 ---
 
 <p align="center">
-  <img src="/images/assets/learning.png" alt="Learning is a Lifelong Journey" style="max-width: 600px; width: 50%; height: auto;">
+  <img src="/images/assets/learning.png" alt="Learning is a Lifelong Journey" style="max-width: 600px; width: 30%; height: auto;">
 </p>
 
 Learning is a lifelong journey, and curiosity is your best compass...
