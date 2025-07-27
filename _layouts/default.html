@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<h1>Latest Posts</h1>
+
+<ul class="post-grid">
+  {% for post in site.posts %}
+    <li class="post-tile">
+      <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
+      <p class="post-date">{{ post.date | date: "%B %d, %Y" }}</p>
+      <p>{{ post.excerpt }}</p>
+    </li>
+  {% endfor %}
+</ul>
