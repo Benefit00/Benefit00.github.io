@@ -17,6 +17,40 @@ html {
   font-size: 100%;
 }
 
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.post-tile {
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fafafa;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.post-tile:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.post-tile h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 0.5rem;
+}
+
+
 body {
 	background: $white;
   font: 18px/1.4 $helvetica;
