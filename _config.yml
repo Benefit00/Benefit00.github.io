@@ -2,7 +2,7 @@
 title: Benefit
 name: Benefit
 description: "Generalist aiming to specialise but the curious nature is constantly challenging me to explore and seek out understanding new things."
-url: "https://benefit00.github.io"   # if using a custom domain, put that here instead (e.g., https://example.com)
+url: "https://ben-levin.online"   # if using a custom domain, put that here instead (e.g., https://example.com)
 baseurl: ""                           # "" for user/organization sites; "/repo-name" for project sites
 permalink: /:title/
 timezone: Africa/Johannesburg
