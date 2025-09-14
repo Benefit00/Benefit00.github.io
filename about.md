@@ -1,10 +1,11 @@
 ---
-layout: page
-title: About
+layout: single
+title: "About"
 permalink: /about/
+author_profile: true
 ---
 
-Some information about you!
+Hi my name is Ben AKA Benefit.
 
 ### More Information
 
