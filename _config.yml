@@ -14,6 +14,10 @@ avatar: https://avatars.githubusercontent.com/u/8112969
 #
 # Flags below are optional
 #
+remote_theme: "mmistakes/minimal-mistakes@4.27.3"
+
+plugins:
+  - jekyll-include-cache
 
 # Includes an icon in the footer for each username you enter
 footer-links:
