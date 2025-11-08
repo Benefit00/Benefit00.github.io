@@ -51,6 +51,50 @@
       transform: scale(1.05);
     }
     .hidden { display: none; }
+
+    /* Touch Controls */
+    #touchControls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      display: none;
+      z-index: 100;
+    }
+    @media (hover: none) and (pointer: coarse) {
+      #touchControls { display: flex; }
+    }
+    .touch-button {
+      flex: 1;
+      background: rgba(0, 255, 136, 0.3);
+      border: 3px solid rgba(0, 255, 136, 0.8);
+      border-radius: 10px;
+      margin: 10px;
+      font-size: 40px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 1);
+      transition: all 0.1s;
+    }
+    .touch-button:active {
+      background: rgba(0, 255, 136, 0.6);
+      transform: scale(0.95);
+    }
+    #shootButton {
+      background: rgba(255, 255, 0, 0.3);
+      border-color: rgba(255, 255, 0, 0.8);
+      text-shadow: 0 0 10px rgba(255, 255, 0, 1);
+    }
+    #shootButton:active {
+      background: rgba(255, 255, 0, 0.6);
+    }
   </style>
 </head>
 <body>
@@ -59,10 +103,18 @@
   <p><strong>Mission:</strong> Protect the internet!</p>
   <p>🎯 <strong>Collect</strong> green items (good security practices)</p>
   <p>💥 <strong>Shoot</strong> red items (scams and threats)</p>
-  <p><br>⬅️ ➡️ Move | SPACE Shoot</p>
+  <p><br><strong>Desktop:</strong> ⬅️ ➡️ Move | SPACE Shoot</p>
+  <p><strong>Mobile:</strong> Use on-screen buttons</p>
   <button onclick="startGame()">Start Game</button>
 </div>
 <canvas id="gameCanvas"></canvas>
+
+<!-- Touch Controls (visible on mobile/tablets) -->
+<div id="touchControls">
+  <div id="leftButton" class="touch-button">⬅️</div>
+  <div id="shootButton" class="touch-button">🔫</div>
+  <div id="rightButton" class="touch-button">➡️</div>
+</div>
 <script>
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -370,8 +422,11 @@ function drawUI() {
     ctx.fillStyle = "white";
     ctx.font = "30px Arial";
     ctx.fillText("Final Score: " + score, canvas.width / 2, canvas.height / 2 + 20);
-    ctx.fillText("Press F5 to play again", canvas.width / 2, canvas.height / 2 + 70);
+    ctx.fillText("Tap/Click to play again", canvas.width / 2, canvas.height / 2 + 70);
     ctx.textAlign = "left";
+
+    // Add click/touch to restart
+    canvas.style.cursor = "pointer";
   }
 }
 
@@ -409,6 +464,7 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
+// Keyboard controls
 window.addEventListener("keydown", (e) => {
   if (!gameStarted) return;
   keys[e.key] = true;
@@ -420,6 +476,105 @@ window.addEventListener("keydown", (e) => {
 
 window.addEventListener("keyup", (e) => {
   keys[e.key] = false;
+});
+
+// Touch controls
+const leftButton = document.getElementById("leftButton");
+const rightButton = document.getElementById("rightButton");
+const shootButton = document.getElementById("shootButton");
+
+// Prevent default touch behaviors
+[leftButton, rightButton, shootButton].forEach(button => {
+  button.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+  });
+});
+
+// Left button
+leftButton.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  if (gameStarted) keys["ArrowLeft"] = true;
+});
+leftButton.addEventListener("touchend", (e) => {
+  e.preventDefault();
+  keys["ArrowLeft"] = false;
+});
+leftButton.addEventListener("touchcancel", (e) => {
+  keys["ArrowLeft"] = false;
+});
+
+// Right button
+rightButton.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  if (gameStarted) keys["ArrowRight"] = true;
+});
+rightButton.addEventListener("touchend", (e) => {
+  e.preventDefault();
+  keys["ArrowRight"] = false;
+});
+rightButton.addEventListener("touchcancel", (e) => {
+  keys["ArrowRight"] = false;
+});
+
+// Shoot button
+shootButton.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  if (gameStarted && lives > 0) {
+    createBullet();
+  }
+});
+
+// Also support touch/swipe on the canvas for movement
+let touchStartX = null;
+canvas.addEventListener("touchstart", (e) => {
+  if (!gameStarted || e.touches.length === 0) return;
+  touchStartX = e.touches[0].clientX;
+});
+
+canvas.addEventListener("touchmove", (e) => {
+  if (!gameStarted || touchStartX === null || e.touches.length === 0) return;
+  e.preventDefault();
+
+  const touchX = e.touches[0].clientX;
+  const deltaX = touchX - touchStartX;
+
+  // Move player based on touch position
+  if (Math.abs(deltaX) > 5) {
+    const targetX = player.x + deltaX * 0.5;
+    if (targetX >= 0 && targetX + player.width <= canvas.width) {
+      player.x = targetX;
+    }
+  }
+
+  touchStartX = touchX;
+});
+
+canvas.addEventListener("touchend", (e) => {
+  // Restart game on game over
+  if (lives <= 0) {
+    e.preventDefault();
+    location.reload();
+    return;
+  }
+  touchStartX = null;
+});
+
+// Tap to shoot on canvas
+canvas.addEventListener("touchstart", (e) => {
+  if (!gameStarted || lives <= 0) return;
+  // Only shoot if it's a quick tap (not a drag)
+  setTimeout(() => {
+    if (touchStartX !== null && Math.abs(e.touches[0].clientX - touchStartX) < 10) {
+      createBullet();
+    }
+  }, 100);
+});
+
+// Restart game on game over (desktop)
+canvas.addEventListener("click", () => {
+  if (lives <= 0) {
+    location.reload();
+  }
 });
 
 function startGame() {
