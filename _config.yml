@@ -17,6 +17,7 @@ plugins:
   - jekyll-include-cache
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-paginate
 
 # --- Markdown & syntax highlighting
 kramdown:
@@ -60,10 +61,15 @@ defaults:
     values:
       layout: single
       author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+      show_date: true
 
 # --- Pagination (optional: uncomment to paginate your home blog list)
-# paginate: 8
-# paginate_path: "/page:num/"
+paginate: 5
+paginate_path: "/page:num/"
 
 # --- Analytics & comments (fill in later if you use them)
 google_analytics:
