@@ -1,1 +1,19 @@
-test
+<div class="brand">
+  <img class="avatar" src="{{ site.avatar | default: '/images/avatar.png' | relative_url }}" alt="Avatar">
+  <div class="site-title">{{ site.name | default: site.title }}</div>
+  <div class="site-sub">{{ site.description }}</div>
+</div>
+
+<nav class="nav">
+  <a href="{{ '/' | relative_url }}">Home</a>
+  <a href="{{ '/research/' | relative_url }}">Research</a>
+  <a href="{{ '/categories/' | relative_url }}">Categories</a>
+  <a href="{{ '/tags/' | relative_url }}">Tags</a>
+  <a href="{{ '/archives/' | relative_url }}">Archives</a>
+  <a href="{{ '/about' | relative_url }}">About</a>
+</nav>
+
+<div class="social">
+  {% if site.github_username %}<a href="https://github.com/{{ site.github_username }}">GitHub</a>{% endif %}
+  {% if site.twitter_username %}<a href="https://x.com/{{ site.twitter_username }}">X</a>{% endif %}
+</div>
