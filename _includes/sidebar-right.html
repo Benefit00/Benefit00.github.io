@@ -1,1 +1,18 @@
-test2
+<div class="panel">
+  <div class="panel-title">Trending Tags</div>
+  <div class="chips">
+    {% assign tags_sorted = site.tags | sort %}
+    {% for tag in tags_sorted limit: 12 %}
+      {% assign tag_name = tag[0] %}
+      {% assign tag_posts = tag[1] %}
+      <a class="chip" href="{{ '/tags/' | relative_url }}#{{ tag_name | slugify }}">
+        {{ tag_name }} ({{ tag_posts | size }})
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">Contents</div>
+  <div id="toc"></div>
+</div>
