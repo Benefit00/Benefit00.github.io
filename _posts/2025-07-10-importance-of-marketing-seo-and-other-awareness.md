@@ -4,6 +4,7 @@ title: "Website Marketing Essentials"
 date: 2025-07-27
 description: "A guide to optimizing your site for visibility and search performance with SEO best practices, Google Analytics, and essential web files."
 tags: [SEO, marketing, meta tags, Google Analytics, Jekyll, GitHub Pages]
+categories: [it]
 ---
 
 > Good SEO isn't just about traffic—it's about *visibility*, *structure*, and *strategy*.

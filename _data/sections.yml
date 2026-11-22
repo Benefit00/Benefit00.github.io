@@ -1,0 +1,33 @@
+# The blog's sections. To post into a section, put its `slug` in the
+# post's front matter:   categories: [cyber-security]
+# Order here = order in the navigation.
+
+- slug: life-lessons
+  name: Life Lessons
+  short: Life
+  blurb: "Hard-won experience, learning how to learn, and stories from the road."
+  color: "#f59e0b"
+
+- slug: cyber-security
+  name: Cyber Security
+  short: Security
+  blurb: "Awareness, threats and practical defences for people and organisations."
+  color: "#10b981"
+
+- slug: it
+  name: Information Technology
+  short: IT
+  blurb: "Cloud, Microsoft 365, the web and the day-to-day of running technology."
+  color: "#3b82f6"
+
+- slug: finance
+  name: Finance
+  short: Finance
+  blurb: "Money, business and making sensible financial decisions."
+  color: "#8b5cf6"
+
+- slug: other
+  name: Other
+  short: Other
+  blurb: "Everything that doesn't fit neatly anywhere else."
+  color: "#ec4899"

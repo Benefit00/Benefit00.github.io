@@ -1,0 +1,64 @@
+# Sveltia CMS config — https://github.com/sveltia/sveltia-cms
+backend:
+  name: github
+  repo: Benefit00/Benefit00.github.io
+  branch: master
+  commit_messages:
+    create: "New post: {{slug}}"
+    update: "Update post: {{slug}}"
+    delete: "Delete post: {{slug}}"
+    uploadMedia: "Upload {{path}}"
+
+site_url: https://blog.blevin.cc
+display_url: https://blog.blevin.cc
+logo_url: https://avatars.githubusercontent.com/u/8112969
+
+media_folder: images/posts
+public_folder: /images/posts
+
+collections:
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: _posts
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{categories}} · {{date | date('YYYY-MM-DD')}}"
+    sortable_fields: [date, title]
+    view_groups:
+      - { label: Section, field: categories }
+    preview_path: "{{slug}}"
+    fields:
+      - { name: layout, widget: hidden, default: post }
+      - { name: title, label: Title, widget: string }
+      - name: categories
+        label: Section
+        widget: select
+        multiple: true
+        min: 1
+        max: 1
+        default: [other]
+        options:
+          - { label: "Life Lessons", value: life-lessons }
+          - { label: "Cyber Security", value: cyber-security }
+          - { label: "Information Technology", value: it }
+          - { label: "Finance", value: finance }
+          - { label: "Other", value: other }
+      - { name: date, label: Publish date, widget: datetime, format: "YYYY-MM-DD HH:mm:ss ZZ" }
+      - { name: description, label: "Summary (shown on cards & Google)", widget: text, required: true }
+      - { name: image, label: "Cover image (optional, ~1600×700)", widget: image, required: false }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: body, label: Post, widget: markdown }
+
+  - name: pages
+    label: Pages
+    files:
+      - name: about
+        label: About page
+        file: about.md
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: kicker, label: Kicker, widget: string, required: false }
+          - { name: description, label: Intro, widget: text, required: false }
+          - { name: permalink, widget: hidden, default: /about/ }
+          - { name: body, label: Body, widget: markdown }

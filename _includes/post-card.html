@@ -1,0 +1,16 @@
+{%- include section-of.html post=include.post -%}
+<article class="card{% if include.feature %} card-feature{% endif %}" style="--c: {{ sec.color }}">
+  <a class="card-link" href="{{ include.post.url | relative_url }}" aria-label="{{ include.post.title | escape }}"></a>
+  <div class="card-art" aria-hidden="true">
+    {% if include.post.image %}<img src="{{ include.post.image | relative_url }}" alt="" loading="lazy">{% else %}<span class="card-glyph">{{ include.post.title | slice: 0 }}</span>{% endif %}
+  </div>
+  <div class="card-body">
+    <div class="meta">
+      <a class="pill" href="{{ '/' | append: sec.slug | append: '/' | relative_url }}">{{ sec.name }}</a>
+      <span>{{ include.post.date | date: "%-d %b %Y" }}</span>
+    </div>
+    <h3 class="card-title">{{ include.post.title }}</h3>
+    <p class="card-excerpt">{{ include.post.description | default: include.post.excerpt | strip_html | truncatewords: 30 }}</p>
+    <span class="meta read">{% include read-time.html content=include.post.content %}</span>
+  </div>
+</article>

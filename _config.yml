@@ -1,84 +1,77 @@
-# --- Site basics
+# ─────────────────────────────────────────────────────────────
+#  Benefit — blog configuration
+#  Most day-to-day settings live here. Restart `jekyll serve`
+#  after editing this file (GitHub Pages rebuilds automatically).
+# ─────────────────────────────────────────────────────────────
+
 title: Benefit
-name: Benefit
-description: "Generalist aiming to specialise but the curious nature is constantly challenging me to explore and seek out understanding new things."
-url: "https://blevin.cc"   # if using a custom domain, put that here instead (e.g., https://example.com)
-baseurl: ""                           # "" for user/organization sites; "/repo-name" for project sites
-permalink: /:title/
+tagline: "Notes on security, technology, money & life"
+description: "Practical writing on cyber security, IT, finance and the lessons learned along the way."
+url: "https://blog.blevin.cc"
+baseurl: ""
+lang: en-ZA
 timezone: Africa/Johannesburg
-locale: en-ZA
+permalink: /:title/          # keeps all existing post URLs unchanged
 
-# --- Theme
-remote_theme: "mmistakes/minimal-mistakes@4.27.3"
-minimal_mistakes_skin: "mint"         # try: default, dark, sunrise, sea, neon, etc.
+# Link back to the main company website (shown in header + footer)
+company:
+  name: "blevin.cc"
+  url: "https://blevin.cc"
 
-# --- Plugins (GitHub Pages–compatible)
+author:
+  name: "Ben Levin"
+  handle: "Benefit"
+  avatar: "https://avatars.githubusercontent.com/u/8112969"
+  bio: "Generalist aiming to specialise — but curiosity keeps pulling me to explore and understand new things."
+  links:
+    - { label: "GitHub",   url: "https://github.com/Benefit00" }
+    - { label: "LinkedIn", url: "https://www.linkedin.com/in/ben--levin/" }
+    - { label: "X",        url: "https://x.com/B3Liev" }
+    - { label: "YouTube",  url: "https://www.youtube.com/@B3nefit" }
+
+twitter:
+  username: B3Liev
+social:
+  name: Ben Levin
+  links:
+    - https://github.com/Benefit00
+    - https://www.linkedin.com/in/ben--levin/
+    - https://x.com/B3Liev
+
+# Plugins — all supported natively by GitHub Pages
 plugins:
-  - jekyll-include-cache
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-paginate
+  - jekyll-seo-tag
 
-# --- Markdown & syntax highlighting
+feed:
+  path: feed.xml
+
+markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
   syntax_highlighter_opts:
-    css_class: "highlight"
+    css_class: highlight
 
-# --- Sass
 sass:
-  style: :expanded
+  style: compressed
 
-# --- Theme features
-search: true
-breadcrumbs: true
-
-# --- Author profile (used on posts and /about)
-author:
-  name: "Benefit"
-  avatar: "https://avatars.githubusercontent.com/u/8112969"
-  bio: "Generalist aiming to specialise but the curious nature is constantly challenging me to explore and seek out understanding new things."
-  links:
-    - label: "GitHub"
-      icon: "fab fa-github"
-      url: "https://github.com/Benefit00"
-    - label: "LinkedIn"
-      icon: "fab fa-linkedin"
-      url: "https://www.linkedin.com/in/ben--levin/"
-    - label: "X (Twitter)"
-      icon: "fab fa-x-twitter"
-      url: "https://x.com/B3Liev"
-    - label: "YouTube"
-      icon: "fab fa-youtube"
-      url: "https://www.youtube.com/@B3nefit"
-
-# --- Defaults so existing posts Just Work™
+# Every post gets these unless it says otherwise
 defaults:
-  - scope:
-      path: ""
-      type: posts
+  - scope: { path: "", type: posts }
     values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: false
-      share: true
-      related: true
-      show_date: true
+      layout: post
+  - scope: { path: "" }
+    values:
+      layout: page
 
-# --- Pagination (optional: uncomment to paginate your home blog list)
-paginate: 5
-paginate_path: "/page:num/"
-
-# --- Analytics & comments (fill in later if you use them)
-google_analytics:
-disqus:
-
-# --- Excludes (fine to keep from Jekyll Now)
 exclude:
   - Gemfile
   - Gemfile.lock
   - LICENSE
   - README.md
   - CNAME
+  - scripts/
+  - vendor/
+  - node_modules/

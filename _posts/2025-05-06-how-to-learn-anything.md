@@ -2,8 +2,8 @@
 layout: post
 title: How to learn anything in general!
 date:   2025-07-10 10:00:00 +0000
-categories: learning productivity
 tags: [curiosity, strategy, growth]
+categories: [life-lessons]
 ---
 
 <p align="center">

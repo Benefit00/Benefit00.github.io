@@ -4,6 +4,7 @@ title: "When the System Fails Its Citizens: My Story of Being Victimized in My O
 date: 2025-07-27
 description: "A firsthand account of property hijacking, corruption, and institutional failure in South Africa."
 tags: [South Africa, crime, corruption, property hijacking, victim rights]
+categories: [life-lessons]
 ---
 
 > _"A home should be a place of safety and dignity—not a battlefield."_  

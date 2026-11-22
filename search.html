@@ -1,0 +1,21 @@
+---
+title: Search
+kicker: Find a post
+permalink: /search/
+---
+<input id="search-input" class="search-input" type="search" placeholder="Search titles, topics and tags…" autocomplete="off" autofocus>
+<ul id="search-results" class="archive-list"></ul>
+<script>
+(function(){
+  var input=document.getElementById('search-input'),out=document.getElementById('search-results'),items=[];
+  fetch('{{ "/feed.json" | relative_url }}').then(function(r){return r.json()}).then(function(d){items=d.items;run();});
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function run(){
+    var q=input.value.trim().toLowerCase();
+    var res=items.filter(function(i){return !q||(i.title+' '+i.summary+' '+(i.tags||[]).join(' ')+' '+i._section.name+' '+i.content_text).toLowerCase().indexOf(q)>-1});
+    out.innerHTML=res.map(function(i){return '<li style="--c:'+i._section.color+'"><time>'+new Date(i.date_published).toLocaleDateString(undefined,{day:'2-digit',month:'short',year:'numeric'})+'</time><a href="'+i.url+'">'+esc(i.title)+'</a><span class="pill sm">'+esc(i._section.short)+'</span></li>'}).join('')||'<li class="muted">No matches.</li>';
+  }
+  var p=new URLSearchParams(location.search).get('q');if(p)input.value=p;
+  input.addEventListener('input',run);
+})();
+</script>

@@ -1,0 +1,26 @@
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <a class="brand" href="{{ '/' | relative_url }}"><span class="brand-mark">B</span><span class="brand-name">{{ site.title }}</span></a>
+      <p class="muted">{{ site.description }}</p>
+    </div>
+    <div class="footer-cols">
+      <div>
+        <h4>Sections</h4>
+        {% for s in site.data.sections %}<a href="{{ '/' | append: s.slug | append: '/' | relative_url }}">{{ s.name }}</a>{% endfor %}
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        {% if site.company.url %}<a href="{{ site.company.url }}">{{ site.company.name }}</a>{% endif %}
+        {% for l in site.author.links %}<a href="{{ l.url }}" rel="me noopener">{{ l.label }}</a>{% endfor %}
+      </div>
+      <div>
+        <h4>Subscribe</h4>
+        <a href="{{ '/feed.xml' | relative_url }}">RSS feed</a>
+        <a href="{{ '/feed.json' | relative_url }}">JSON feed</a>
+        <a href="{{ '/embed/' | relative_url }}">Embed on your site</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-base muted">© {{ site.time | date: '%Y' }} {{ site.author.name }}. All rights reserved.</div>
+</footer>
