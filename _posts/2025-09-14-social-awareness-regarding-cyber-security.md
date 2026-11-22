@@ -4,6 +4,7 @@ title: "Social Awareness Regarding cyber Security"
 date: 2025-09-14
 description: "My book and the journey of writing it. Socail awareness in a broken system."
 tags: [self-publish, book writing, cyber crime, social awareness, meta tags, Google Analytics, Jekyll, GitHub Pages]
+categories: [cyber-security]
 ---
 
 *Introduction*

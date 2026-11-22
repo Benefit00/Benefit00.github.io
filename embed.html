@@ -1,0 +1,31 @@
+---
+title: Embed the blog
+kicker: For the company website
+description: "Show the latest posts on any web page with two lines of HTML."
+permalink: /embed/
+---
+<p>Paste this where the posts should appear on the company website. It loads in isolation, so it won't clash with the site's own styling, and it updates automatically whenever a new post is published.</p>
+
+<pre><code>&lt;div data-benefit-blog data-limit="3"&gt;&lt;/div&gt;
+&lt;script src="{{ '/embed.js' | absolute_url }}" async&gt;&lt;/script&gt;</code></pre>
+
+<h2>Options</h2>
+<table>
+  <thead><tr><th>Attribute</th><th>Values</th><th>Default</th></tr></thead>
+  <tbody>
+    <tr><td><code>data-limit</code></td><td>1–12</td><td>3</td></tr>
+    <tr><td><code>data-section</code></td><td>{% for s in site.data.sections %}<code>{{ s.slug }}</code>{% unless forloop.last %}, {% endunless %}{% endfor %}</td><td>all sections</td></tr>
+    <tr><td><code>data-layout</code></td><td><code>grid</code>, <code>list</code></td><td>grid</td></tr>
+    <tr><td><code>data-theme</code></td><td><code>auto</code>, <code>light</code>, <code>dark</code></td><td>auto</td></tr>
+    <tr><td><code>data-title</code></td><td>any text, or empty to hide</td><td>From the blog</td></tr>
+    <tr><td><code>data-target</code></td><td><code>_blank</code> to open in a new tab</td><td>same tab</td></tr>
+  </tbody>
+</table>
+
+<h2>Live preview — grid</h2>
+<div class="embed-demo"><div data-benefit-blog data-limit="3"></div></div>
+
+<h2>Live preview — list, cyber security only</h2>
+<div class="embed-demo"><div data-benefit-blog data-limit="4" data-layout="list" data-section="cyber-security" data-title="Security insights"></div></div>
+
+<script src="{{ '/embed.js' | relative_url }}" async></script>

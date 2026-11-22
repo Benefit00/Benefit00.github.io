@@ -1,0 +1,7 @@
+{%- comment -%} Usage: include section-of.html post=post  → sets `sec` {%- endcomment -%}
+{%- assign sec = nil -%}
+{%- for c in include.post.categories -%}
+  {%- assign found = site.data.sections | where: "slug", c | first -%}
+  {%- if found and sec == nil -%}{%- assign sec = found -%}{%- endif -%}
+{%- endfor -%}
+{%- if sec == nil -%}{%- assign sec = site.data.sections | where: "slug", "other" | first -%}{%- endif -%}

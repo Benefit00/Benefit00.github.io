@@ -1,17 +1,52 @@
 ---
 layout: default
 ---
+{% include section-of.html post=page %}
+<div class="progress" aria-hidden="true"><span></span></div>
+<article class="post" style="--c: {{ sec.color }}">
+  <header class="post-head wrap narrow">
+    <a class="pill" href="{{ '/' | append: sec.slug | append: '/' | relative_url }}">{{ sec.name }}</a>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.description %}<p class="lede">{{ page.description }}</p>{% endif %}
+    <div class="byline">
+      <img src="{{ site.author.avatar }}" alt="" width="40" height="40">
+      <div>
+        <strong>{{ site.author.name }}</strong>
+        <span class="muted"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time> · {% include read-time.html content=content %}</span>
+      </div>
+    </div>
+  </header>
+  {% if page.image %}<figure class="post-cover wrap"><img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}"></figure>{% endif %}
+  <div class="wrap narrow">
+    <div class="prose">{{ content }}</div>
 
-<article class="post">
-  <h1>{{ page.title }}</h1>
+    {% if page.tags.size > 0 %}
+      <ul class="tags">{% for t in page.tags %}<li>#{{ t }}</li>{% endfor %}</ul>
+    {% endif %}
 
-  <div class="entry">
-    {{ content }}
+    <div class="share">
+      <span class="muted">Share</span>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://x.com/intent/tweet?url={{ page.url | absolute_url | url_encode }}&text={{ page.title | url_encode }}" target="_blank" rel="noopener">X</a>
+      <a href="mailto:?subject={{ page.title | url_encode }}&body={{ page.url | absolute_url | url_encode }}">Email</a>
+      <button class="copy-link" data-url="{{ page.url | absolute_url }}">Copy link</button>
+    </div>
+
+    <aside class="author-box">
+      <img src="{{ site.author.avatar }}" alt="" width="64" height="64">
+      <div>
+        <strong>{{ site.author.name }} <span class="muted">· {{ site.author.handle }}</span></strong>
+        <p>{{ site.author.bio }}</p>
+      </div>
+    </aside>
   </div>
 
-  <div class="date">
-    Written on {{ page.date | date: "%B %e, %Y" }}
-  </div>
-
-  {% include disqus.html %}
+  {% assign related = site.categories[sec.slug] | where_exp: "p", "p.url != page.url" %}
+  {% if related.size == 0 %}{% assign related = site.posts | where_exp: "p", "p.url != page.url" %}{% endif %}
+  <section class="wrap related">
+    <h2 class="band-title">Keep reading</h2>
+    <div class="grid">
+      {% for post in related limit: 3 %}<div class="grid-item">{% include post-card.html post=post %}</div>{% endfor %}
+    </div>
+  </section>
 </article>

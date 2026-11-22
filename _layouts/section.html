@@ -1,0 +1,24 @@
+---
+layout: default
+---
+{% assign sec = site.data.sections | where: "slug", page.section | first %}
+<section class="hero hero-section" style="--c: {{ sec.color }}">
+  <div class="wrap">
+    <p class="kicker">Section</p>
+    <h1 class="hero-title">{{ sec.name }}</h1>
+    <p class="lede">{{ sec.blurb }}</p>
+  </div>
+</section>
+<section class="wrap">
+  {% assign posts = site.categories[page.section] %}
+  {% if posts and posts.size > 0 %}
+    <div class="grid">
+      {% for post in posts %}<div class="grid-item">{% include post-card.html post=post %}</div>{% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <p class="empty-title">No {{ sec.name | downcase }} posts yet.</p>
+      <p class="muted">The first one is on its way. Meanwhile, <a href="{{ '/' | relative_url }}">browse everything</a>.</p>
+    </div>
+  {% endif %}
+</section>

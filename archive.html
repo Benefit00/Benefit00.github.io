@@ -1,0 +1,16 @@
+---
+title: Archive
+kicker: Every post
+description: "Everything published, newest first."
+permalink: /archive/
+---
+{% assign byyear = site.posts | group_by_exp: "p", "p.date | date: '%Y'" %}
+{% for y in byyear %}
+<h2>{{ y.name }}</h2>
+<ul class="archive-list">
+  {% for post in y.items %}
+    {% include section-of.html post=post %}
+    <li style="--c: {{ sec.color }}"><time>{{ post.date | date: "%d %b" }}</time><a href="{{ post.url | relative_url }}">{{ post.title }}</a><span class="pill sm">{{ sec.short }}</span></li>
+  {% endfor %}
+</ul>
+{% endfor %}

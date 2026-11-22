@@ -1,9 +1,3 @@
-main:
-  - title: "Home"
-    url: /
-  - title: "About"
-    url: /about/
-  - title: "Categories"
-    url: /categories/
-  - title: "Tags"
-    url: /tags/
+# Extra links shown in the header after the sections
+- { title: "About",   url: /about/ }
+- { title: "Archive", url: /archive/ }

@@ -1,0 +1,49 @@
+---
+layout: default
+---
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">{{ site.tagline }}</p>
+    <h1 class="hero-title">Clear thinking on <span class="hl">security</span>, <span class="hl">technology</span>, <span class="hl">money</span> &amp; <span class="hl">life</span>.</h1>
+    <p class="lede">{{ site.description }}</p>
+    <div class="chips" role="tablist" aria-label="Filter by section">
+      <button class="chip" aria-pressed="true" data-filter="all">All</button>
+      {% for s in site.data.sections %}
+        {% assign n = site.categories[s.slug] | size %}
+        <button class="chip" aria-pressed="false" data-filter="{{ s.slug }}" style="--c: {{ s.color }}">{{ s.name }} <span class="count">{{ n }}</span></button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  {% assign latest = site.posts | first %}
+  {% if latest %}
+    <div class="feature-row" data-hide-on-filter>
+      {% include post-card.html post=latest feature=true %}
+    </div>
+  {% endif %}
+
+  <div class="grid" id="post-grid">
+    {% for post in site.posts %}
+      {% include section-of.html post=post %}
+      <div class="grid-item{% if forloop.first %} is-latest{% endif %}" data-section="{{ sec.slug }}">
+        {% include post-card.html post=post %}
+      </div>
+    {% endfor %}
+  </div>
+  <p class="empty muted" hidden>Nothing here yet — check back soon.</p>
+</section>
+
+<section class="wrap sections-band">
+  <h2 class="band-title">Explore by section</h2>
+  <div class="section-tiles">
+    {% for s in site.data.sections %}
+      <a class="tile" href="{{ '/' | append: s.slug | append: '/' | relative_url }}" style="--c: {{ s.color }}">
+        <span class="tile-name">{{ s.name }}</span>
+        <span class="tile-blurb">{{ s.blurb }}</span>
+        <span class="tile-count">{% assign n = site.categories[s.slug] | size %}{{ n }} {% if n == 1 %}post{% else %}posts{% endif %} →</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>

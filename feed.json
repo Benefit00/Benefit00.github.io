@@ -1,0 +1,30 @@
+---
+layout: null
+permalink: /feed.json
+---
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": {{ site.title | jsonify }},
+  "home_page_url": {{ '/' | absolute_url | jsonify }},
+  "feed_url": {{ '/feed.json' | absolute_url | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "icon": {{ site.author.avatar | jsonify }},
+  "authors": [{ "name": {{ site.author.name | jsonify }}, "avatar": {{ site.author.avatar | jsonify }} }],
+  "language": {{ site.lang | jsonify }},
+  "_sections": {{ site.data.sections | jsonify }},
+  "items": [
+    {% for post in site.posts %}{% include section-of.html post=post %}{% assign words = post.content | strip_html | number_of_words %}
+    {
+      "id": {{ post.url | absolute_url | jsonify }},
+      "url": {{ post.url | absolute_url | jsonify }},
+      "title": {{ post.title | jsonify }},
+      "summary": {{ post.description | default: post.excerpt | strip_html | strip_newlines | truncatewords: 40 | jsonify }},
+      "content_text": {{ post.content | strip_html | strip_newlines | truncatewords: 400 | jsonify }},
+      {% if post.image %}"image": {{ post.image | absolute_url | jsonify }},{% endif %}
+      "date_published": {{ post.date | date_to_xmlschema | jsonify }},
+      "tags": {{ post.tags | jsonify }},
+      "_section": { "slug": {{ sec.slug | jsonify }}, "name": {{ sec.name | jsonify }}, "short": {{ sec.short | jsonify }}, "color": {{ sec.color | jsonify }} },
+      "_read_minutes": {{ words | divided_by: 220 | plus: 1 }}
+    }{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]
+}
