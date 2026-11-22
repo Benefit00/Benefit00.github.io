@@ -1,7 +1,7 @@
 ---
-title: "About"
-kicker: "Hello"
-description: "Hi, I'm Ben — better known online as Benefit."
+title: About
+kicker: As one experiences life, one's outlook, knowledge, views, and experiences change. Of course one develops different opinions and views scenarios differently. With hardship comes the greatest lessons, for only those who have lost, and then learned from the situation, can their opinion stand the test of time and hold weight.
+description: Hi, I'm Ben — better known online as Benefit.
 permalink: /about/
 ---
 
